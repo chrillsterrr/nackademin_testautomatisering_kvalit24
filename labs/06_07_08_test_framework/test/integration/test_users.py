@@ -2,9 +2,10 @@ from playwright.sync_api import Page
 import pytest
 import libs.utils
 import sqlite3
+import os
 from models.api.user import UserAPI
 
-BASE_URL = 'http://localhost:8000'
+BASE_URL = os.getenv("BACKEND_URL", "http://localhost:8000")
 
 
 
