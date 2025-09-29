@@ -8,36 +8,30 @@ class AdminPage:
     def __init__(self, page, base_url=None):
         self.page = page
         self.base_url = base_url or os.getenv("APP_URL", "http://localhost:5173")
-        self.input_create_product = page.get_by_placeholder("Product Name")
-        self.button_create_product = page.get_by_role("button", name="Create Product")
-        self.product_cards = page.locator(".product-item")
-
 
     def get_current_product_count(self):
-        return self.product_cards.count()
-    
+        product_cards = self.page.locator(".product-item")
+        return product_cards.count()
 
     def create_product(self, product):
-        # complete logic
-        self.input_create_product.fill(product)
-        self.button_create_product.click()
-    
+        input_create_product = self.page.get_by_placeholder("Product Name")
+        button_create_product = self.page.get_by_role("button", name="Create Product")
+        input_create_product.fill(product)
+        button_create_product.click()
 
-    def delete_product_by_name(self,product):
-        # complete logic
+    def delete_product_by_name(self, product):
         product_row = self.page.locator(f".product-item:has(span:text('{product}'))")
         delete_button = product_row.get_by_role("button", name="Delete")
         delete_button.click()
 
-
     def product_exists(self, product: str) -> bool:
         product_locator = self.page.locator(f".product-item:has-text('{product}')")
         return product_locator.is_visible()
-    
+
     def product_is_visible(self, product):
         product_locator = self.page.locator(f".product-item:has-text('{product}')")
         expect(product_locator).to_be_visible()
 
     def product_to_not_be_visible(self, product):    
         product_locator = self.page.locator(f".product-item:has-text('{product}')")
-        expect(product_locator).not_to_be_visible()    
+        expect(product_locator).not_to_be_visible()
