@@ -7,7 +7,7 @@ import os
 class AdminPage:
     def __init__(self, page, base_url=None):
         self.page = page
-        self.base_url = base_url or os.getenv("APP_URL", "http://infra-app-frontend-1:80")
+        self.base_url = base_url or os.getenv("APP_URL")
 
 
     def get_current_product_count(self):
