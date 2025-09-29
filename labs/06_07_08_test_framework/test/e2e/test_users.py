@@ -3,6 +3,10 @@ from models.ui.signup import SignupPage
 from models.ui.home import HomePage
 import pytest
 import libs.utils
+import os
+
+API_URL = os.getenv("BACKEND_URL", "http://localhost:8000")
+APP_URL = os.getenv("APP_URL", "http://localhost:5173")
 
 
 
