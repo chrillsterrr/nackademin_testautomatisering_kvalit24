@@ -14,6 +14,7 @@ class HomePage:
 
     def navigate(self):
         self.page.goto(self.base_url)
+        self.page.wait_for_selector('input[placeholder="Username"]')
 
 
     def login(self,username,password):
