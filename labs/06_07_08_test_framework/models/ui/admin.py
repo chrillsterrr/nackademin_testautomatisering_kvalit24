@@ -2,11 +2,12 @@
 # that are in the Product Catalog to be used
 # by all the users
 from playwright.sync_api import expect
-
+import os
 
 class AdminPage:
-    def __init__(self, page):
+    def __init__(self, page, base_url=None):
         self.page = page
+        self.base_url = base_url or os.getenv("APP_URL", "http://localhost:5173")
         self.input_create_product = page.get_by_placeholder("Product Name")
         self.button_create_product = page.get_by_role("button", name="Create Product")
         self.product_cards = page.locator(".product-item")
