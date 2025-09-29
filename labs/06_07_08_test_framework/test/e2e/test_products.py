@@ -17,14 +17,20 @@ def test_add_product_to_catalog(page: Page):
     login_page = HomePage(page, base_url=APP_URL)
     admin_page = AdminPage(page, base_url=APP_URL)
 
-    # Given I am an admin user​
-    # note !! this admin-user must be added pre-test run
+    # Given I am an admin user
     home_page.navigate()
     login_page.login("admin", "pass1234")
+    
+    # ✅ Wait for redirect and page load after login
+    page.wait_for_load_state("networkidle")
+    
+    # ✅ Optional: Wait for a specific element that indicates admin page is loaded
+    page.wait_for_selector("text=Products available:", timeout=10000)
 
-    # When I add a product to the catalog​
+    # When I add a product to the catalog
     product = f"test_course_{uuid.uuid4()}"
     admin_page.create_product(product)
+    
     # THEN The product is available to be used in the app
     assert page.get_by_text("Products available:").is_visible()
     admin_page.product_is_visible(product)

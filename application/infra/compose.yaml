@@ -11,6 +11,9 @@ services:
     ports:
       - "8080:8080"
     image: "jenkins-local"
+    environment:
+      - APP_URL=http://app-frontend
+      - BACKEND_URL=http://app-backend:8000
     volumes:
       - jenkins_home:/var/jenkins_home
 

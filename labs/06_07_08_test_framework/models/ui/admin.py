@@ -13,14 +13,32 @@ class AdminPage:
     def get_current_product_count(self):
         return self.product_cards.count()
     
-
     def create_product(self, product):
-        self.page.goto(self.base_url)
-        # wait for input to appear
+    # Don't navigate here - assume we're already on admin page
+    # Just ensure page is ready
+        self.page.wait_for_load_state("domcontentloaded")
+        
+        # Wait for input with better error message
         input_create_product = self.page.get_by_placeholder("Product Name")
-        input_create_product.wait_for(state="visible", timeout=10000)
+        try:
+            input_create_product.wait_for(state="visible", timeout=30000)
+        except Exception as e:
+            print(f"Failed to find 'Product Name' input. Current URL: {self.page.url}")
+            self.page.screenshot(path="failed_state.png")
+            raise e
+        
         input_create_product.fill(product)
         self.page.get_by_role("button", name="Create Product").click()
+    
+
+    #def create_product(self, product):
+    #    self.page.goto(self.base_url)
+    #    # wait for input to appear
+    #    input_create_product = self.page.get_by_placeholder("Product Name")
+    #    input_create_product.wait_for(state="visible", timeout=10000)
+    #    input_create_product.fill(product)
+    #    self.page.get_by_role("button", name="Create Product").click()
+
     
 
     def delete_product_by_name(self,product):
