@@ -3,18 +3,19 @@ from models.ui.home import HomePage
 from models.ui.admin import AdminPage
 from models.api.user import UserAPI
 from models.api.admin import AdminAPI
-
+import os
 import uuid
 import requests
 
-API_URL = "http://localhost:8000"
+API_URL = os.getenv("BACKEND_URL", "http://localhost:8000")
+APP_URL = os.getenv("APP_URL", "http://localhost:5173")
 
 
 
 def test_add_product_to_catalog(page: Page):
-    home_page = HomePage(page)
-    login_page = HomePage(page)
-    admin_page = AdminPage(page)
+    home_page = HomePage(page, base_url=APP_URL)
+    login_page = HomePage(page, base_url=APP_URL)
+    admin_page = AdminPage(page, base_url=APP_URL)
 
     # Given I am an admin user​
     # note !! this admin-user must be added pre-test run
