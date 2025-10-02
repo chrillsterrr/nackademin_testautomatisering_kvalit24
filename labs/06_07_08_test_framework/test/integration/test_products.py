@@ -7,7 +7,7 @@ import os
 from models.api.user import UserAPI
 from models.api.admin import AdminAPI
 
-BASE_URL = os.getenv("BACKEND_URL", "http://localhost:8000")
+BASE_URL = os.getenv("BACKEND_URL", "http://localhost:8000/")
 
 
 # Given I am an admin user​
