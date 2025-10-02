@@ -3,12 +3,12 @@ from models.ui.home import HomePage
 from models.ui.admin import AdminPage
 from models.api.user import UserAPI
 from models.api.admin import AdminAPI
-import os
+
 import uuid
 import requests
 
-API_URL = os.getenv("BACKEND_URL", "http://localhost:8000")
-APP_URL = os.getenv("APP_URL", "http://localhost:5173")
+API_URL = ("BACKEND_URL", "http://localhost:8000")
+
 
 
 
